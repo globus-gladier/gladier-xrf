@@ -1,10 +1,9 @@
 import os
 from setuptools import setup, find_packages
-import glob
 
 # single source of truth for package version
 version_ns = {}
-with open(os.path.join('gladier_client', 'version.py')) as f:
+with open(os.path.join('gladier_xrf', 'version.py')) as f:
     exec(f.read(), version_ns)
 version = version_ns['__version__']
 
@@ -16,18 +15,17 @@ with open('requirements.txt') as reqs:
             continue
         install_requires.append(req)
 
-script_list = glob('scripts/*')
 
 setup(
-    name='gladier-client',
-    description='The Gladier Client Template',
-    url='https://github.com/globus-gladier/gladier-client-template',
+    name='gladier-xrf',
+    description='The Gladier Client for XRF Maps',
+    url='https://github.com/globus-gladier/gladier-xrf',
     maintainer='The Gladier Team',
     maintainer_email='',
     version=version_ns['__version__'],
     packages=find_packages(),
     install_requires=install_requires,
-    scripts=script_list,
+    scripts=[],
     dependency_links=[],
     license='Apache 2.0',
     classifiers=[
