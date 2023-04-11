@@ -1,8 +1,22 @@
 import argparse
 import os
 
-from gladier_xrf.flows.flow_xrf import XRFMapsFlow
 from gladier_xrf.deployments import deployment_map
+
+
+from gladier import  GladierBaseClient, generate_flow_definition
+from gladier_xrf.tools.xrf_maps import XRFMaps
+from gladier_xrf.tools.gather_metadata import GatherMetaData
+@generate_flow_definition
+class XRFMapsFlow(GladierBaseClient):    
+    globus_group = '0bbe98ef-de8f-11eb-9e93-3db9c47b68ba'
+    gladier_tools = [
+       'gladier_tools.transfer.Transfer',
+        XRFMaps,
+        GatherMetaData,
+       'gladier_tools.publish.Publishv2'
+    ]
+    
 
 
 def arg_parse():
@@ -56,7 +70,6 @@ if __name__ == '__main__':
     }
 
     xrf_maps_flow = XRFMapsFlow()
-
     xrf_run_label = 'Raf is testing' #pathlib.Path(hdf_name).name[:62]
 
     flow_run = xrf_maps_flow.run_flow(flow_input=flow_input, label=xrf_run_label)
